@@ -6,12 +6,15 @@
 #include <algorithm>
 #include <cstdio>
 #include <vector>
+#include <map>
 
+// === Text decoration ===
 #define RESET "\033[0m"
 #define BOLD "\033[1m"
 #define DIM "\033[2m"
 #define ITALIC "\033[3m"
 
+// === RouxBot label ===
 #define ROUXBOT DIM ITALIC "RouxBot" RESET
 
 enum e_message_type {
@@ -30,6 +33,7 @@ class Bot
 		~Bot();
 
 		// === Methods ===
+		// ~~ Messages methods ~~
 		int processMessage(std::string &message);
 
 		// ~~ Users methods ~~
@@ -56,5 +60,9 @@ class Bot
 		std::string		_usersFileName;
 		std::string		_message;
 		std::string		_messageCopy;
-		// int			_messageType;
+		int				_messageType;
+
+		// === Vocabulary ===
+		std::map<std::string, void (Bot::*)(std::string)> _actionUser;
+		void _initActionUser( void );
 };

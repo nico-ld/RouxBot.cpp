@@ -10,7 +10,14 @@ int Bot::processMessage(std::string &message) {
 
 	if (_messageCopy.find("rouxbot") == std::string::npos)
 		return (1);
-	
-	std::cout << "RouxBot received : " << _message << std::endl;
+
+	std::map<std::string, void (Bot::*)(std::string)>::iterator it;
+	for (it = _actionUser.begin(); it != _actionUser.end(); ++it) {
+		if (_messageCopy.find(it->first) != std::string::npos) {
+			(this->*(it->second))("jean");
+			break ;
+		}
+	}
+
 	return (0);
 }

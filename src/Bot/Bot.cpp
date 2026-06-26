@@ -3,6 +3,7 @@
 // === Constructor & Destructor ===
 Bot::Bot() {
 	_usersFileName = "users.json";
+	_messageType = UNKNOW;
 	
 	std::cout << ROUXBOT DIM " is ready." RESET << std::endl;
 }
