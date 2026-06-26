@@ -1,33 +1,5 @@
 #include "Bot.hpp"
 
-// === Constructor & Destructor ===
-Bot::Bot() {
-	_usersFileName = "users.json";
-	
-	std::cout << ROUXBOT DIM " is ready." RESET << std::endl;
-}
-
-Bot::~Bot() {
-	std::cout << ROUXBOT DIM " is down." RESET << std::endl;
-}
-
-// === Methods ===
-int Bot::processMessage(std::string &message) {
-	if (message.empty())
-		return (1);
-
-	_message = message;
-	_messageCopy = _message;
-	std::transform(_messageCopy.begin(), _messageCopy.end(), _messageCopy.begin(), ::tolower);
-
-	if (_messageCopy.find("rouxbot") == std::string::npos)
-		return (1);
-	
-	std::cout << "RouxBot received : " << _message << std::endl;
-	return (0);
-}
-
-// ~~ Users methods ~~
 void Bot::setUser(std::string userName) {
 	if (userName.empty())
 		throw UserNameEmptyException();
@@ -81,30 +53,21 @@ std::string Bot::getUserInfo(std::string userName) const {
 	if (userName.empty())
 		return ("");
 
-	std::fstream _usersFile(_usersFileName.c_str());
-	if (!_usersFile.is_open())
+	std::fstream usersFile(_usersFileName.c_str());
+	if (!usersFile.is_open()) {
+		usersFile.open(_usersFileName.c_str(), std::ios::out);
+		if (usersFile.is_open())
+			return ("");
 		throw CannotOpenFileException();
+	}
 	
 	std::string line;
-	while (std::getline(_usersFile, line)) {
+	while (std::getline(usersFile, line)) {
 		if (line.find(userName, 0)) {
-			_usersFile.close();
+			usersFile.close();
 			return (line);
 		}
 	}
-	_usersFile.close();
+	usersFile.close();
 	return ("");
-}
-
-// === Exceptions ===
-const char* Bot::CannotOpenFileException::what() const throw() {
-	return ("Error: Cannot open 'users.json'");
-}
-
-const char* Bot::UserNameEmptyException::what() const throw() {
-	return ("Error: The USER name is empty.");
-}
-
-const char* Bot::RemoveTmpFileException::what() const throw() {
-	return ("Error: An error occurs while trying to remove 'tmpUsers.json'.");
 }
