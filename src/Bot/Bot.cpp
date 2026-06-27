@@ -4,6 +4,7 @@
 Bot::Bot() {
 	_usersFileName = "users.json";
 	_messageType = UNKNOW;
+	_initActionUser();
 	
 	std::cout << ROUXBOT DIM " is ready." RESET << std::endl;
 }

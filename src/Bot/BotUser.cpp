@@ -2,7 +2,7 @@
 
 void Bot::setUser(std::string userName) {
 	if (userName.empty())
-		throw UserNameEmptyException();
+		return ;
 
 	if (getUserInfo(userName).empty())
 		addUser(userName);
@@ -10,7 +10,7 @@ void Bot::setUser(std::string userName) {
 
 void Bot::addUser(std::string userName) {
 	if (userName.empty())
-		throw UserNameEmptyException();
+		return ;
 
 	std::ofstream usersFile(_usersFileName.c_str(), std::ios::app);
 	if (!usersFile.is_open())
@@ -23,13 +23,12 @@ void Bot::addUser(std::string userName) {
 
 void Bot::deleteUser(std::string userName) {
 	if (userName.empty())
-		throw UserNameEmptyException();
+		return ;
 
 	std::fstream usersFile(_usersFileName.c_str());
 	if (!usersFile.is_open())
 		throw CannotOpenFileException();
 
-	std::cout << DIM "Deleting user : " ITALIC << userName << RESET DIM "..." RESET << std::endl;
 	std::string line;
 	std::vector<std::string> updatedFile;
 	while (getline(usersFile, line)) {
@@ -46,7 +45,7 @@ void Bot::deleteUser(std::string userName) {
 		usersFile << *it;
 	}
 	usersFile.close();
-	std::cout << DIM "User : " ITALIC << userName << RESET DIM " have been deleted" << std::endl;
+	std::cout << DIM "User : " ITALIC << userName << RESET DIM " have been deleted" RESET << std::endl;
 }
 
 std::string Bot::getUserInfo(std::string userName) const {
