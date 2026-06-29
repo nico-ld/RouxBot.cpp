@@ -11,37 +11,37 @@ void Bot::_initActionUser(void) {
 	_actionUser["add"] = &Bot::addUser;
 	_actionUser["set"] = &Bot::setUser;
 	
-	_vocabulary["delete"] = ACTION;
-	_vocabulary["add"] = ACTION;
-	_vocabulary["set"] = ACTION;
+	_vocabulary["delete"] = INTENT_ACTION;
+	_vocabulary["add"] = INTENT_ACTION;
+	_vocabulary["set"] = INTENT_ACTION;
 }
 
 void Bot::_initPoliteness(void) {
-	_vocabulary["hello"] = GREETING;
-	_vocabulary["hi"] = GREETING;
-	_vocabulary["hey"] = GREETING;
-	_vocabulary["yo"] = GREETING;
-	_vocabulary["bye"] = FAREWELL;
-	_vocabulary["goodbye"] = FAREWELL;
-	_vocabulary["thanks"] = THANKS;
-	_vocabulary["thank"] = THANKS;
+	_vocabulary["hello"] = INTENT_GREETING;
+	_vocabulary["hi"] = INTENT_GREETING;
+	_vocabulary["hey"] = INTENT_GREETING;
+	_vocabulary["yo"] = INTENT_GREETING;
+	_vocabulary["bye"] = INTENT_FAREWELL;
+	_vocabulary["goodbye"] = INTENT_FAREWELL;
+	_vocabulary["thanks"] = INTENT_THANKS;
+	_vocabulary["thank"] = INTENT_THANKS;
 }
 
 void Bot::_initQuestion(void) {
-	_vocabulary["what"] = QUESTION;
-	_vocabulary["why"] = QUESTION;
-	_vocabulary["where"] = QUESTION;
-	_vocabulary["which"] = QUESTION;
-	_vocabulary["how"] = QUESTION;
+	_vocabulary["what"] = INTENT_QUESTION;
+	_vocabulary["why"] = INTENT_QUESTION;
+	_vocabulary["where"] = INTENT_QUESTION;
+	_vocabulary["which"] = INTENT_QUESTION;
+	_vocabulary["how"] = INTENT_QUESTION;
 }
 
 void Bot::_initInsult(void) {
-	_vocabulary["idiot"] = INSULT;
-	_vocabulary["moron"] = INSULT;
-	_vocabulary["stupid"] = INSULT;
-	_vocabulary["dumb"] = INSULT;
-	_vocabulary["fool"] = INSULT;
-	_vocabulary["jerk"] = INSULT;
-	_vocabulary["weirdo"] = INSULT;
-	_vocabulary["jackass"] = INSULT;
+	_vocabulary["idiot"] = INTENT_INSULT;
+	_vocabulary["moron"] = INTENT_INSULT;
+	_vocabulary["stupid"] = INTENT_INSULT;
+	_vocabulary["dumb"] = INTENT_INSULT;
+	_vocabulary["fool"] = INTENT_INSULT;
+	_vocabulary["jerk"] = INTENT_INSULT;
+	_vocabulary["weirdo"] = INTENT_INSULT;
+	_vocabulary["jackass"] = INTENT_INSULT;
 }

@@ -28,6 +28,7 @@ int Bot::processMessage(std::string &message) {
 	_messageCopy.erase(pos, 7);
 
 	std::cout << ROUXBOT DIM " received " << _messageCopy << RESET << std::endl;
+	tokenizeMessage();
 
 	std::map<std::string, void (Bot::*)(std::string)>::iterator it;
 	for (it = _actionUser.begin(); it != _actionUser.end(); ++it) {
@@ -39,4 +40,39 @@ int Bot::processMessage(std::string &message) {
 	}
 
 	return (0);
+}
+
+void Bot::tokenizeMessage(void) {
+	int scores[INTENT_UNKNOW] = {0};
+
+	std::stringstream ss(_messageCopy);
+	std::string word;
+	while (ss >> word) {
+		std::map<std::string, e_intent>::iterator it = _vocabulary.find(word);
+		if (it != _vocabulary.end()) {
+			_tokens[word] = it->second;
+			scores[it->second] += 1;
+		}
+		else
+			_tokens[word] = INTENT_UNKNOW;
+	}
+
+	_messageType = INTENT_UNKNOW;
+	int bestScore = 0;
+	for (int i = 0; i < INTENT_UNKNOW; i++) {
+		if (scores[i] > bestScore) {
+			bestScore = scores[i];
+			_messageType = i;
+		}
+	}
+
+	std::cout << DIM "Type of message : " 
+				<< ((_messageType == INTENT_GREETING) ? "GREETING" :
+				(_messageType == INTENT_FAREWELL) ? "FAREWELL" :
+				(_messageType == INTENT_THANKS) ? "THANKS" :
+				(_messageType == INTENT_QUESTION) ? "QUESTION" :
+				(_messageType == INTENT_INSULT) ? "INSULT" :
+				(_messageType == INTENT_ACTION) ? "ACTION" : 
+				"UNKNOW") 
+				<< RESET << std::endl;
 }

@@ -2,6 +2,7 @@
 
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <algorithm>
 #include <cstdio>
@@ -18,13 +19,13 @@
 #define ROUXBOT DIM ITALIC "RouxBot" RESET
 
 enum e_intent {
-	GREETING,
-	FAREWELL,
-	THANKS,
-	QUESTION,
-	INSULT,
-	ACTION,
-	UNKNOW
+	INTENT_GREETING,
+	INTENT_FAREWELL,
+	INTENT_THANKS,
+	INTENT_QUESTION,
+	INTENT_INSULT,
+	INTENT_ACTION,
+	INTENT_UNKNOW
 };
 
 class Bot
@@ -37,6 +38,7 @@ class Bot
 		// === Methods ===
 		// ~~ Messages methods ~~
 		int processMessage(std::string &message);
+		void tokenizeMessage( void );
 
 		// ~~ Users methods ~~
 		void setUser(std::string userName);
@@ -63,8 +65,9 @@ class Bot
 		// === Message ===
 		std::string		_message;
 		std::string		_messageCopy;
+		int				_messageType;
 
-		std::map<std::string, e_intent> _token;
+		std::map<std::string, e_intent> _tokens;
 
 		// === Vocabulary ===
 		void _initVocabulary( void );
