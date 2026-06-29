@@ -4,8 +4,23 @@ void Bot::setUser(std::string userName) {
 	if (userName.empty())
 		return ;
 
-	if (getUserInfo(userName).empty())
+	_userName = userName;
+	
+	std::string userInfo = getUserInfo(userInfo);
+	if (userInfo.empty()) {
 		addUser(userName);
+		_userBehavior = 0;
+	}
+	else {
+		size_t pos = userInfo.find("behavior");
+		if (pos == std::string::npos)
+			throw InvalidJsonFormatException();
+		pos += 10;
+		
+		_userBehavior = atoi(userInfo.c_str() + pos);
+	}
+
+	std::cout << DIM "User setted on " << _userName << ", behavior : " << _userBehavior << RESET << std::endl;
 }
 
 void Bot::addUser(std::string userName) {

@@ -12,6 +12,8 @@ static std::string userTarget(std::string message, size_t pos, size_t size) {
 	return (target);
 }
 
+
+
 int Bot::processMessage(std::string &message) {
 	if (message.empty())
 		return (1);

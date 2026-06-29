@@ -17,12 +17,14 @@
 // === RouxBot label ===
 #define ROUXBOT DIM ITALIC "RouxBot" RESET
 
-enum e_message_type {
-	UNKNOW,
-	HELLO,
-	ACTION,
+enum e_intent {
+	GREETING,
+	FAREWELL,
+	THANKS,
 	QUESTION,
-	INSULT
+	INSULT,
+	ACTION,
+	UNKNOW
 };
 
 class Bot
@@ -47,22 +49,33 @@ class Bot
 			public:
 				virtual const char* what() const throw();
 		};
-		class UserNameEmptyException: public std::exception {
-			public:
-				virtual const char* what() const throw();
-		};
-		class RemoveTmpFileException: public std::exception {
+		class InvalidJsonFormatException: public std::exception {
 			public:
 				virtual const char* what() const throw();
 		};
 
 	private:
+		// === User ===
+		std::string		_userName;
 		std::string		_usersFileName;
+		int				_userBehavior;
+
+		// === Message ===
 		std::string		_message;
 		std::string		_messageCopy;
-		int				_messageType;
+
+		std::map<std::string, e_intent> _token;
 
 		// === Vocabulary ===
+		void _initVocabulary( void );
+		std::map<std::string, e_intent> _vocabulary;
+
+		// ~~ User action ~~
 		std::map<std::string, void (Bot::*)(std::string)> _actionUser;
 		void _initActionUser( void );
+
+		// ~~ Methods ~~
+		void _initPoliteness( void );
+		void _initQuestion ( void );
+		void _initInsult ( void );
 };

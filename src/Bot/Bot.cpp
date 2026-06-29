@@ -3,8 +3,7 @@
 // === Constructor & Destructor ===
 Bot::Bot() {
 	_usersFileName = "users.json";
-	_messageType = UNKNOW;
-	_initActionUser();
+	_initVocabulary();
 	
 	std::cout << ROUXBOT DIM " is ready." RESET << std::endl;
 }
@@ -18,10 +17,6 @@ const char* Bot::CannotOpenFileException::what() const throw() {
 	return ("Error: Cannot open 'users.json'");
 }
 
-const char* Bot::UserNameEmptyException::what() const throw() {
-	return ("Error: The USER name is empty.");
-}
-
-const char* Bot::RemoveTmpFileException::what() const throw() {
-	return ("Error: An error occurs while trying to remove 'tmpUsers.json'.");
+const char* Bot::InvalidJsonFormatException::what() const throw() {
+	return ("Error: `users.json` invalid format.");
 }
