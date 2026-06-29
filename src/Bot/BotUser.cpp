@@ -6,7 +6,7 @@ void Bot::setUser(std::string userName) {
 
 	_userName = userName;
 	
-	std::string userInfo = getUserInfo(userInfo);
+	std::string userInfo = getUserInfo(userName);
 	if (userInfo.empty()) {
 		addUser(userName);
 		_userBehavior = 0;

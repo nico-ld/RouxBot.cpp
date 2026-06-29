@@ -19,8 +19,6 @@ int main(int ac, char **av) {
 			std::getline(std::cin, line);
 			if (RouxBot.processMessage(line) == 1)
 				std::cout << line << std::endl;
-			
-			std::cout << std::endl;
 		}
 	}
 	catch (std::exception &e) {

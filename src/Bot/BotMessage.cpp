@@ -12,8 +12,6 @@ static std::string userTarget(std::string message, size_t pos, size_t size) {
 	return (target);
 }
 
-
-
 int Bot::processMessage(std::string &message) {
 	if (message.empty())
 		return (1);
@@ -21,6 +19,8 @@ int Bot::processMessage(std::string &message) {
 	_message = message;
 	_messageCopy = _message;
 	std::transform(_messageCopy.begin(), _messageCopy.end(), _messageCopy.begin(), ::tolower);
+	std::string::iterator newEnd = std::remove_if(_messageCopy.begin(), _messageCopy.end(), ::ispunct);
+	_messageCopy.erase(newEnd, _messageCopy.end());
 
 	size_t pos = _messageCopy.find("rouxbot");
 	if (pos == std::string::npos)
