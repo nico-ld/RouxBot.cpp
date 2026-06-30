@@ -4,16 +4,19 @@ void Bot::_initVocabulary(void) {
 	_initActionUser();
 	_initPoliteness();
 	_initQuestion();
+	_initInsult();
 }
 
 void Bot::_initActionUser(void) {
-	_actionUser["delete"] = &Bot::deleteUser;
-	_actionUser["add"] = &Bot::addUser;
-	_actionUser["set"] = &Bot::setUser;
+	_actionUser["!delete"] = &Bot::deleteUser;
+	_actionUser["!add"] = &Bot::addUser;
+	_actionUser["!set"] = &Bot::setUser;
+	_actionUser["!setBehavior"] = &Bot::setUserBehavior;
 	
 	_vocabulary["delete"] = INTENT_ACTION;
 	_vocabulary["add"] = INTENT_ACTION;
 	_vocabulary["set"] = INTENT_ACTION;
+	_vocabulary["setBehavior"] = INTENT_ACTION;
 }
 
 void Bot::_initPoliteness(void) {
