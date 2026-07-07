@@ -17,7 +17,7 @@ int main(int ac, char **av) {
 		while(line != "EXIT") {
 			std::cout << "> ";
 			std::getline(std::cin, line);
-			if (RouxBot.processMessage(line) == 1)
+			if (line != "EXIT" && RouxBot.processMessage(line) == 1 && !line.empty())
 				std::cout << line << std::endl;
 		}
 	}

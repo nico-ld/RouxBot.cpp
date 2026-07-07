@@ -10,13 +10,13 @@ void Bot::_initVocabulary(void) {
 void Bot::_initActionUser(void) {
 	_actionUser["!delete"] = &Bot::deleteUser;
 	_actionUser["!add"] = &Bot::addUser;
+	_actionUser["!behavior"] = &Bot::setUserBehavior;
 	_actionUser["!set"] = &Bot::setUser;
-	_actionUser["!setBehavior"] = &Bot::setUserBehavior;
 	
-	_vocabulary["delete"] = INTENT_ACTION;
-	_vocabulary["add"] = INTENT_ACTION;
-	_vocabulary["set"] = INTENT_ACTION;
-	_vocabulary["setBehavior"] = INTENT_ACTION;
+	_vocabulary["!delete"] = INTENT_ACTION;
+	_vocabulary["!add"] = INTENT_ACTION;
+	_vocabulary["!behavior"] = INTENT_ACTION;
+	_vocabulary["!set"] = INTENT_ACTION;
 }
 
 void Bot::_initPoliteness(void) {
