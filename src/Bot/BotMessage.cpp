@@ -19,14 +19,12 @@ int Bot::processMessage(std::string &message) {
 	_message = message;
 	_messageCopy = _message;
 	std::transform(_messageCopy.begin(), _messageCopy.end(), _messageCopy.begin(), ::tolower);
-	std::string::iterator newEnd = std::remove_if(_messageCopy.begin(), _messageCopy.end(), ::ispunct);
-	_messageCopy.erase(newEnd, _messageCopy.end());
-
+	
 	size_t pos = _messageCopy.find("rouxbot");
 	if (pos == std::string::npos)
 		return (1);
 	_messageCopy.erase(pos, 7);
-
+	
 	std::cout << ROUXBOT DIM " received " << _messageCopy << RESET << std::endl;
 	tokenizeMessage();
 
@@ -44,6 +42,8 @@ int Bot::processMessage(std::string &message) {
 
 void Bot::tokenizeMessage(void) {
 	int scores[INTENT_UNKNOW] = {0};
+
+	// Normalize message
 
 	std::stringstream ss(_messageCopy);
 	std::string word;
