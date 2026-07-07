@@ -23,6 +23,26 @@ void Bot::setUser(std::string userName) {
 	std::cout << DIM "User setted on " << _userName << ", behavior : " << _userBehavior << RESET << std::endl;
 }
 
+void Bot::setUserBehavior(std::string userName) {
+	if (userName.empty())
+		return ;
+
+	std::string input;
+	std::cout << "Enter the new Behavior value [-10, 10] (STOP to quit)\n > ";
+	std::getline(std::cin, input);
+	if (input == "STOP")
+		return ;
+	char *end;
+	int n = std::strtol(input.c_str(), &end, 10);
+	while ((n == 0 && *end) || n < -10 || n > 10) {
+		std::cerr << "Error:  please enter an integer between -10 and 10 (STOP to quit)\n > ";
+		std::getline(std::cin, input);
+		n = std::strtol(input.c_str(), &end, 10);
+		if (input == "STOP")
+			return ;
+	}
+}
+
 void Bot::addUser(std::string userName) {
 	if (userName.empty())
 		return ;

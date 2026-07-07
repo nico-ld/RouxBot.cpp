@@ -42,6 +42,7 @@ class Bot
 
 		// ~~ Users methods ~~
 		void setUser(std::string userName);
+		void setUserBehavior(std::string userName);
 		void addUser(std::string userName);
 		void deleteUser(std::string userName);
 		std::string getUserInfo(std::string userName) const;
