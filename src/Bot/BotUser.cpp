@@ -19,6 +19,7 @@ void Bot::setUser(std::string userName) {
 	_userName = userName;
 	
 	std::string userInfo = getUserInfo(userName);
+	std::cout << DIM << userInfo << RESET << std::endl;
 	if (userInfo.empty()) {
 		addUser(userName);
 		_userBehavior = 0;
@@ -128,7 +129,7 @@ std::string Bot::getUserInfo(std::string userName) const {
 	
 	std::string line;
 	while (std::getline(usersFile, line)) {
-		if (line.find(userName, 0)) {
+		if (line.find(userName, 0) != std::string::npos) {
 			usersFile.close();
 			return (line);
 		}
