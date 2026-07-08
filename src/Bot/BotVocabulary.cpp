@@ -1,6 +1,7 @@
 #include "Bot.hpp"
 
 void Bot::_initVocabulary(void) {
+	_vocabulary["rouxbot"] = INTENT_NAME;
 	_initActionUser();
 	_initPoliteness();
 	_initQuestion();

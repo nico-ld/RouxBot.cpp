@@ -20,3 +20,12 @@ const char* Bot::CannotOpenFileException::what() const throw() {
 const char* Bot::InvalidJsonFormatException::what() const throw() {
 	return ("Error: `users.json` invalid format.");
 }
+
+std::ostream &operator<<(std::ostream &out, std::vector<std::pair<std::string, e_intent> > content) {
+	std::vector<std::pair<std::string, e_intent> >::iterator it;
+
+	for (it = content.begin(); it != content.end(); it++) {
+		out << it->first << " ";
+	}
+	return (out);
+}

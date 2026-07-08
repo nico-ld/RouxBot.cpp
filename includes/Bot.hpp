@@ -8,6 +8,7 @@
 #include <cstdio>
 #include <vector>
 #include <map>
+#include <utility>
 
 // === Text decoration ===
 #define RESET "\033[0m"
@@ -19,6 +20,7 @@
 #define ROUXBOT DIM ITALIC "RouxBot" RESET
 
 enum e_intent {
+	INTENT_NAME,
 	INTENT_GREETING,
 	INTENT_FAREWELL,
 	INTENT_THANKS,
@@ -38,7 +40,7 @@ class Bot
 		// === Methods ===
 		// ~~ Messages methods ~~
 		int processMessage(std::string &message);
-		void tokenizeMessage( void );
+		void tokenizeMessage(std::string message);
 
 		// ~~ Users methods ~~
 		void setUser(std::string userName);
@@ -64,11 +66,8 @@ class Bot
 		int				_userBehavior;
 
 		// === Message ===
-		std::string		_message;
-		std::string		_messageCopy;
 		int				_messageType;
-
-		std::map<std::string, e_intent> _tokens;
+		std::vector<std::pair<std::string, e_intent> > _tokens;
 
 		// === Vocabulary ===
 		void _initVocabulary( void );
@@ -83,3 +82,5 @@ class Bot
 		void _initQuestion ( void );
 		void _initInsult ( void );
 };
+
+std::ostream &operator<<(std::ostream &out, std::vector<std::pair<std::string, e_intent> > content);
