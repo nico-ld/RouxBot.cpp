@@ -71,7 +71,7 @@ void Bot::executeCommand(void) {
 	std::vector<std::pair<std::string, e_intent> >::iterator it;
 	std::map<std::string, void (Bot::*)(std::string)>::iterator itAction;
 	for (it = _tokens.begin(); it != _tokens.end(); it++) {
-		if ((it + 1) == _tokens.end()) {
+		if (it->second == INTENT_ACTION && (it + 1) == _tokens.end()) {
 			std::cerr << DIM "Target error : no target given." RESET << std::endl;
 			break ;
 		}
