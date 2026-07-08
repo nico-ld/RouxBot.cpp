@@ -55,6 +55,15 @@ void Bot::tokenizeMessage(std::string message) {
 	}
 }
 
+static bool isNameValid(std::string name, e_intent type) {
+	if (type == INTENT_ACTION) {
+		std::cerr << DIM "Target error : " << name << " is a command." RESET << std::endl;
+		return (false);
+	}
+	else
+		return (true);
+}
+
 void Bot::executeCommand(void) {
 	if (_tokens.empty())
 		return ;
@@ -62,7 +71,11 @@ void Bot::executeCommand(void) {
 	std::vector<std::pair<std::string, e_intent> >::iterator it;
 	std::map<std::string, void (Bot::*)(std::string)>::iterator itAction;
 	for (it = _tokens.begin(); it != _tokens.end(); it++) {
-		if (it->second == INTENT_ACTION) {
+		if ((it + 1) == _tokens.end()) {
+			std::cerr << DIM "Target error : no target given." RESET << std::endl;
+			break ;
+		}
+		if (it->second == INTENT_ACTION && isNameValid((it + 1)->first, (it + 1)->second)) {
 			itAction = _actionUser.find(it->first);
 			if (itAction != _actionUser.end()) {
 				(this->*(itAction->second))((it + 1)->first);
