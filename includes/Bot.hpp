@@ -40,7 +40,6 @@ class Bot
 		// === Methods ===
 		// ~~ Messages methods ~~
 		int processMessage(std::string &message);
-		void tokenizeMessage(std::string message);
 
 		// ~~ Users methods ~~
 		void setUser(std::string userName);
@@ -81,6 +80,10 @@ class Bot
 		void _initPoliteness( void );
 		void _initQuestion ( void );
 		void _initInsult ( void );
+
+		// === Private Methods ===
+		void tokenizeMessage(std::string message);
+		void executeCommand( void );
 };
 
 std::ostream &operator<<(std::ostream &out, std::vector<std::pair<std::string, e_intent> > content);
