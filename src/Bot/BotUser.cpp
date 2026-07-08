@@ -84,6 +84,10 @@ void Bot::addUser(std::string userName) {
 	if (userName.empty())
 		return ;
 
+	std::string userInfo = getUserInfo(userName);
+	if (!userInfo.empty())
+		return ;
+
 	std::ofstream usersFile(_usersFileName.c_str(), std::ios::app);
 	if (!usersFile.is_open())
 		throw CannotOpenFileException();
