@@ -65,7 +65,7 @@ class Bot
 		int				_userBehavior;
 
 		// === Message ===
-		int				_messageType;
+		e_intent _messageType;
 		std::vector<std::pair<std::string, e_intent> > _tokens;
 
 		// === Vocabulary ===
@@ -88,3 +88,4 @@ class Bot
 };
 
 std::ostream &operator<<(std::ostream &out, std::vector<std::pair<std::string, e_intent> > content);
+std::ostream &operator<<(std::ostream &out, e_intent &type);
