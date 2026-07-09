@@ -1,5 +1,8 @@
 #include "Bot.hpp"
 
+/*
+ * updateUserfile() -> overwrite users.json with new content
+ */
 static int updateUserFile(std::vector<std::string> newContent, std::string fileName) {
 	std::fstream userFile(fileName.c_str(), std::ios::out | std::ios::trunc);
 	if (!userFile.is_open())
@@ -12,6 +15,9 @@ static int updateUserFile(std::vector<std::string> newContent, std::string fileN
 	return (0);
 }
 
+/*
+ * ::setUser() -> define wich user is talking to RouxBot
+ */
 void Bot::setUser(std::string userName) {
 	if (userName.empty())
 		return ;
@@ -19,7 +25,6 @@ void Bot::setUser(std::string userName) {
 	_userName = userName;
 	
 	std::string userInfo = getUserInfo(userName);
-	std::cout << DIM << userInfo << RESET << std::endl;
 	if (userInfo.empty()) {
 		addUser(userName);
 		_userBehavior = 0;
@@ -33,9 +38,13 @@ void Bot::setUser(std::string userName) {
 		_userBehavior = atoi(userInfo.c_str() + pos);
 	}
 
+	// System output
 	std::cout << DIM "User setted on " << _userName << ", behavior : " << _userBehavior << RESET << std::endl;
 }
 
+/*
+ * ::setUserBehavior() -> Modify behavior of a user
+ */
 void Bot::setUserBehavior(std::string userName) {
 	if (userName.empty())
 		return ;
@@ -45,6 +54,8 @@ void Bot::setUserBehavior(std::string userName) {
 	std::getline(std::cin, input);
 	if (input == "STOP")
 		return ;
+
+	// Check for valid input
 	char *end;
 	int n = std::strtol(input.c_str(), &end, 10);
 	while ((n == 0 && *end) || n < -10 || n > 10) {
@@ -59,6 +70,7 @@ void Bot::setUserBehavior(std::string userName) {
 	if (!userFile.is_open())
 		throw CannotOpenFileException();
 	
+	// Get users.json to modify the right line
 	std::vector<std::string> newContent;
 	std::string line;
 	while (getline(userFile, line)) {
@@ -75,11 +87,15 @@ void Bot::setUserBehavior(std::string userName) {
 	}
 	userFile.close();
 
+	// Update users.json
 	if (updateUserFile(newContent, _usersFileName) == -1)
 		throw CannotOpenFileException();
 	std::cout << DIM << userName << " behavior updated to " << n << RESET << std::endl;
 }
 
+/*
+ * ::addUser() -> add the target user if hee doesn't exist
+ */
 void Bot::addUser(std::string userName) {
 	if (userName.empty())
 		return ;
@@ -97,6 +113,9 @@ void Bot::addUser(std::string userName) {
 	std::cout << DIM "User : " ITALIC << userName << RESET DIM " added." RESET << std::endl;
 }
 
+/*
+ * ::deleteUser() -> delete the target user
+ */
 void Bot::deleteUser(std::string userName) {
 	if (userName.empty())
 		return ;
@@ -119,6 +138,9 @@ void Bot::deleteUser(std::string userName) {
 	std::cout << DIM "User : " ITALIC << userName << RESET DIM " have been deleted" RESET << std::endl;
 }
 
+/*
+ * ::getUserInfo() -> return users info from the users.json
+ */
 std::string Bot::getUserInfo(std::string userName) const {
 	if (userName.empty())
 		return ("");

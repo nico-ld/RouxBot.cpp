@@ -1,11 +1,16 @@
 #include "Bot.hpp"
 
+/*
+ * ::processMessage() -> get in parameter a message from user,
+ *						 tokenize it, identify type and then reply.
+ */
 int Bot::processMessage(std::string &message) {
 	if (message.empty())
 		return (1);
 
 	tokenizeMessage(message);
 
+	// Check for the presence of 'rouxbot', if not the method end here
 	std::vector<std::pair<std::string, e_intent> >::iterator it;
 	size_t oldSize = _tokens.size();
 	for (it = _tokens.begin(); it != _tokens.end(); it++) {
@@ -17,13 +22,20 @@ int Bot::processMessage(std::string &message) {
 	if (oldSize == _tokens.size())
 		return (1);
 	
+	// System output
 	std::cout << ROUXBOT DIM " received : " << _tokens << RESET << std::endl;
 
+	// Check for command in the message to execute them
 	executeCommand();
 
 	return (0);
 }
 
+/*
+ * ::tokenizeMessage() -> tokenize the message into words then normalize 
+ * 						  them (lowercase and remove punctuation). After 
+ * 						  that, it also identify the token  type to store it.
+ */
 void Bot::tokenizeMessage(std::string message) {
 	_tokens.clear();
 
@@ -33,8 +45,10 @@ void Bot::tokenizeMessage(std::string message) {
 	std::map<std::string, void (Bot::*)(std::string)>::iterator itAction;
 
 	while (ss >> word) {
+		// Lowrecase
 		std::transform(word.begin(), word.end(), word.begin(), ::tolower);
 
+		// Remove punctuation (not '!' in case of command)
 		for (size_t i = 0; i < word.size(); i++) {
 			if (std::ispunct(word[i])) {
 				if (word[i] == '!' && i == 0) {
@@ -47,6 +61,7 @@ void Bot::tokenizeMessage(std::string message) {
 			}
 		}
 
+		// Search the word inside _vocabulary to intentify it
 		itVoc = _vocabulary.find(word);
 		if (itVoc != _vocabulary.end())
 			_tokens.push_back(std::make_pair(word, itVoc->second));
@@ -55,6 +70,9 @@ void Bot::tokenizeMessage(std::string message) {
 	}
 }
 
+/*
+ * isNameValid() -> Avoid command as User name
+ */
 static bool isNameValid(std::string name, e_intent type) {
 	if (type == INTENT_ACTION) {
 		std::cerr << DIM "Target error : " << name << " is a command." RESET << std::endl;
@@ -64,6 +82,9 @@ static bool isNameValid(std::string name, e_intent type) {
 		return (true);
 }
 
+/*
+ * ::executeCommand() -> Check for 'INTENT_ACTION' and execute command
+ */
 void Bot::executeCommand(void) {
 	if (_tokens.empty())
 		return ;

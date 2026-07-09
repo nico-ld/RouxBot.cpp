@@ -82,6 +82,7 @@ class Bot
 		void _initInsult ( void );
 
 		// === Private Methods ===
+		// ~~ Messages methods ~~
 		void tokenizeMessage(std::string message);
 		void executeCommand( void );
 };
