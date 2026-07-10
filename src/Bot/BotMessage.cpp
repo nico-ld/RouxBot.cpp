@@ -25,7 +25,7 @@ int Bot::processMessage(std::string &message) {
 	// System output
 	std::cout << ROUXBOT DIM " received : " << _tokens << RESET << std::endl;
 
-	int scores[INTENT_UNKNOW] = {0};
+	int scores[INTENT_UNKNOW + 1] = {0};
 	int best = INTENT_UNKNOW;
 	for (it = _tokens.begin(); it != _tokens.end(); it++) {
 		scores[it->second] += 1;
@@ -34,10 +34,12 @@ int Bot::processMessage(std::string &message) {
 	}
 	_messageType = static_cast<e_intent>(best);
 
-	std::cout << DIM "Message type is " << _messageType << RESET << std::endl;
+	std::cout << DIM "Message type is " << _messageType << "; " << best << RESET << std::endl;
 
 	// Check for command in the message to execute them
 	executeCommand();
+
+	answerMessage();
 
 	return (0);
 }

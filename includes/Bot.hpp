@@ -85,6 +85,7 @@ class Bot
 		// ~~ Messages methods ~~
 		void tokenizeMessage(std::string message);
 		void executeCommand( void );
+		void answerMessage( void );
 };
 
 std::ostream &operator<<(std::ostream &out, std::vector<std::pair<std::string, e_intent> > content);

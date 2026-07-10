@@ -10,6 +10,7 @@ SRC			:= \
 				$(BOT_DIR)Bot.cpp \
 				$(BOT_DIR)BotUser.cpp \
 				$(BOT_DIR)BotMessage.cpp \
+				$(BOT_DIR)BotAnswer.cpp \
 				$(BOT_DIR)BotVocabulary.cpp
 
 OBJ_DIR		:= obj/
