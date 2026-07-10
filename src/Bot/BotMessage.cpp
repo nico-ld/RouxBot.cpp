@@ -35,11 +35,11 @@ int Bot::processMessage(std::string &message) {
 	_messageType = static_cast<e_intent>(best);
 
 	std::cout << DIM "Message type is " << _messageType << "; " << best << RESET << std::endl;
+	
+	answerMessage();
 
 	// Check for command in the message to execute them
 	executeCommand();
-
-	answerMessage();
 
 	return (0);
 }

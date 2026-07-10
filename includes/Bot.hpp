@@ -12,6 +12,9 @@
 
 // === Text decoration ===
 #define RESET "\033[0m"
+
+# define ORANGE	"\033[38;2;255;153;0m"
+
 #define BOLD "\033[1m"
 #define DIM "\033[2m"
 #define ITALIC "\033[3m"
